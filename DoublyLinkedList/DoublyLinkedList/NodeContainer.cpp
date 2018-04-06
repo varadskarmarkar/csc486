@@ -52,29 +52,35 @@ void NodeContainer::addToEnd(Node* n) {
 }
 
 void NodeContainer::deleteNode(Node* n) {
-	if (n->getPrev() != nullptr && n->getNext() != nullptr) {
-		//node has a previous and a next
-		n->getPrev()->setNext(n->getNext());
-		n->getNext()->setPrev(n->getPrev());
-	}
-	else if (n->getPrev() != nullptr) {
-		//node has a previous but not a next -> end of list
-		n->getPrev()->setNext(nullptr);
-		last = n->getPrev();
-	}
-	else if (n->getNext() != nullptr) {
-		//node has a next but not a previous -> beginning of list
-		n->getNext()->setPrev(nullptr);
-		head = n->getNext();
+	if (n == nullptr) {
+		//do nothing
 	}
 	else {
-		//only node in list
-		head = nullptr;
-		last = nullptr;
-	}
+		if (n->getPrev() != nullptr && n->getNext() != nullptr) {
+			//node has a previous and a next
+			n->getPrev()->setNext(n->getNext());
+			n->getNext()->setPrev(n->getPrev());
+		}
+		else if (n->getPrev() != nullptr) {
+			//node has a previous but not a next -> end of list
+			n->getPrev()->setNext(nullptr);
+			last = n->getPrev();
+		}
+		else if (n->getNext() != nullptr) {
+			//node has a next but not a previous -> beginning of list
+			n->getNext()->setPrev(nullptr);
+			head = n->getNext();
+		}
+		else {
+			//only node in list
+			head = nullptr;
+			last = nullptr;
+		}
 
-	delete n;
-	size--;
+		delete n;
+		size--;
+	}
+	
 }
 
 void NodeContainer::printList() {
