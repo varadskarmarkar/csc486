@@ -1,0 +1,6 @@
+C:\Users\pc047\Documents\csc486\week1\DoublyLinkedListCS\DoublyLinkedListCS\bin\Debug\DoublyLinkedListCS.exe
+C:\Users\pc047\Documents\csc486\week1\DoublyLinkedListCS\DoublyLinkedListCS\bin\Debug\DoublyLinkedListCS.pdb
+C:\Users\pc047\Documents\csc486\week1\DoublyLinkedListCS\DoublyLinkedListCS\obj\Debug\DoublyLinkedListCS.csprojResolveAssemblyReference.cache
+C:\Users\pc047\Documents\csc486\week1\DoublyLinkedListCS\DoublyLinkedListCS\obj\Debug\DoublyLinkedListCS.csproj.CoreCompileInputs.cache
+C:\Users\pc047\Documents\csc486\week1\DoublyLinkedListCS\DoublyLinkedListCS\obj\Debug\DoublyLinkedListCS.exe
+C:\Users\pc047\Documents\csc486\week1\DoublyLinkedListCS\DoublyLinkedListCS\obj\Debug\DoublyLinkedListCS.pdb
