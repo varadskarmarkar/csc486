@@ -47,7 +47,6 @@ TEST( CatClass, Serialize_tests )
 	CHECK( newData.getI() == 61 );
 	CHECK( newData.getC() == 67 );
 	CHECK( newData.getD() == 88 );
-
 	// check the size of the data structure
 	CHECK( sizeof(Cat) == 24 );
 }

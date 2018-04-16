@@ -63,13 +63,21 @@ const orange &Fish::getOrange() const
 void Fish::deserialize( const char * const buffer ) 
 {
 	// do your magic here
-   UNUSED_VAR(buffer);
+   //UNUSED_VAR(buffer);
+   memcpy(this, buffer, sizeof(Fish));
+   this->pApple = new apple();
+   this->pOrange = new orange();
+   memcpy(this->pApple, buffer + sizeof(Fish), sizeof(apple));
+   memcpy(this->pOrange, buffer + sizeof(Fish) + sizeof(apple), sizeof(orange));
 }
 
 // Write object to a buffer
 void Fish::serialize( char * const buffer ) const
 {
 	// do your magic here
-    UNUSED_VAR(buffer);
+    //UNUSED_VAR(buffer);
+	memcpy(buffer, this, sizeof(Fish));
+	memcpy((buffer + sizeof(Fish)), this->pApple, sizeof(apple));
+	memcpy((buffer + sizeof(Fish) + sizeof(apple)), this->pOrange, sizeof(orange));
 }
 

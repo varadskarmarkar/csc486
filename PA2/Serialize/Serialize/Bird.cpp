@@ -52,13 +52,28 @@ const char *Bird::getS() const
 void Bird::deserialize( const char * const buffer ) 
 {
 	// do your magic here
-   UNUSED_VAR(buffer);
+   //UNUSED_VAR(buffer);
+	memcpy(this, buffer, sizeof(Bird));
+	size_t len = (size_t)(buffer + sizeof(Bird));
+	char *se = (char *)calloc(len, sizeof(char));
+	strcpy_s(se, len, (const char *)(buffer + sizeof(Bird) + sizeof(int)));
+	this->s = se;
 }
 
 // Write object to a buffer
 void Bird::serialize( char * const buffer ) const
 {
 	// do your magic here
-   UNUSED_VAR(buffer);
+   //UNUSED_VAR(buffer);
+	char * ptr = this->s;
+	size_t length = 1;
+	while (*ptr++ != '\0')
+	{
+		length++;
+	}
+	// do your magic here
+	memcpy((buffer), this, sizeof(Bird));
+	memcpy((buffer + sizeof(Bird)), &length, sizeof(int));
+	memcpy((buffer + sizeof(Bird) + sizeof(int)), this->s, length);
 }
 

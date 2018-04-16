@@ -63,11 +63,13 @@ public:
 
 private:
 	// data to serialize
-	int      x;
 	apple    *pApple;
-	char     a;
-	float    y;
 	orange   *pOrange;
+	float    y;
+	int      x;
+	char     a;
+	
+	
 
 };
 

@@ -29,10 +29,12 @@ public:
 
 private:
 	// data to serialize
-	int		i;
-	char	a;
 	float	y;
+	int		i;
 	int		j;
+	char	a;
+	
+	
 
 };
 

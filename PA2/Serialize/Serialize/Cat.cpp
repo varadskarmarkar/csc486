@@ -18,14 +18,16 @@ Cat::Cat(float _x, char _a, char _b, float _y, int _i, char _c, double _d)
 void Cat::deserialize( const char * const buffer ) 
 {	
 	// do your magic here
-   UNUSED_VAR(buffer);
+   //UNUSED_VAR(buffer);
+   memcpy(this, buffer, sizeof(Cat));
 }
 
 // Write object to a buffer
 void Cat::serialize( char * const buffer ) const
 {
 	// do your magic here
-   UNUSED_VAR(buffer);
+   //UNUSED_VAR(buffer);
+	memcpy(buffer, this, sizeof(Cat));
 }
 
 float Cat::getX() const

@@ -34,12 +34,13 @@ private:
 
 	// data to serialize
 	float	x;
+	float	y;
+	double	d;
+	int	    i;
 	char	a;
 	char	b;
-	float	y;
-	int	    i;
 	char	c;
-	double	d;
+	
 
 };
 
