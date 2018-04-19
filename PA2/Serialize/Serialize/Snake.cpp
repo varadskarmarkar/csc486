@@ -15,16 +15,16 @@ Medusa::Medusa()
 
 Medusa::~Medusa()
 {
-	Snake *pSnake = (Snake *)this->head;
+	Snake *snakePointer = (Snake *)this->head;
 
 	// delete every snake associated with Medusa
-	while( pSnake != 0 )
+	while( snakePointer != 0 )
 	{
 		// squirrel away for delete
-		Snake *pTmp = pSnake;
+		Snake *pTmp = snakePointer;
 
 		// advanced to next snake
-		pSnake = (Snake *)pSnake->next;
+		snakePointer = (Snake *)snakePointer->next;
 
 		// goodbye old snake
 		delete(pTmp);
@@ -85,26 +85,81 @@ const Egg &Snake::getEgg() const
 void Snake::deserialize( const char * const buffer )
 {
 	// do your magic here
-    UNUSED_VAR(buffer);
+    /*UNUSED_VAR(buffer);*/
+	memcpy(this, buffer, sizeof(Snake));
+	this->pEgg = new Egg();
+	memcpy(this->pEgg, buffer + sizeof(Snake), sizeof(Egg));
 }
 
 // Write object to a buffer
 void Snake::serialize( char * const buffer ) const
 {
 	// do your magic here
-    UNUSED_VAR(buffer);
+    /*UNUSED_VAR(buffer);*/
+	memcpy(buffer, this, sizeof(Snake));
+	memcpy(buffer + sizeof(Snake), this->pEgg, sizeof(Egg));
 }
 
 // Read from a buffer
 void Medusa::deserialize( const char * const buffer )
 {
 	// do your magic here
-    UNUSED_VAR(buffer);
+    /*UNUSED_VAR(buffer);*/
+	memcpy(this, buffer, sizeof(Medusa));
+
+	// get the number of Snakes
+	size_t numSnakes = 0;
+	memcpy(&numSnakes, (buffer + sizeof(Medusa)), sizeof(int));
+
+	// deserialize the Snakes
+	if (numSnakes != 0)
+	{
+		const char* tmpBuffer = buffer + sizeof(Medusa) + sizeof(int);
+		Snake** s = (Snake**)calloc(numSnakes, sizeof(Snake*));
+		for (size_t i = 0; i < numSnakes; i++)
+		{
+			s[i] = new Snake();
+			s[i]->deserialize(tmpBuffer);
+			tmpBuffer += sizeof(Snake) + sizeof(Egg);
+		}
+
+		// relink
+		for (size_t i = 0; i < numSnakes; i++)
+		{
+			i == 0 ? s[i]->prev = 0 : s[i]->prev = s[i - 1];
+			i == numSnakes - 1 ? s[i]->next = 0 : s[i]->next = s[i + 1];
+		}
+		this->head = s[0];
+	}
 }
 
 // Write object to a buffer
 void Medusa::serialize( char * const buffer ) const
 {
 	// do your magic here
-    UNUSED_VAR(buffer);
+    /*UNUSED_VAR(buffer);*/
+	memcpy(buffer, this, sizeof(Medusa));
+	if (this->head != 0)
+	{
+		int numSnakes = 0;
+		Snake* snakePointer = (Snake*)this->getHeadSnake();
+		while (snakePointer != 0) {
+			numSnakes++;
+			snakePointer = (Snake*)snakePointer->next;
+		}
+
+		// serialize Snakes
+		snakePointer = (Snake*)this->getHeadSnake();
+		char* tmpBuffer = buffer + sizeof(Medusa);
+		memcpy(tmpBuffer, &numSnakes, sizeof(int));
+
+		tmpBuffer += sizeof(int);
+		for (int i = 0; i < numSnakes; i++)
+		{
+			snakePointer->serialize(tmpBuffer);
+			snakePointer = (Snake*)snakePointer->next;
+			tmpBuffer += sizeof(Snake) + sizeof(Egg);
+		}
+
+	}
 }

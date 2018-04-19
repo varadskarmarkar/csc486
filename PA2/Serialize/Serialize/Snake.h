@@ -15,9 +15,10 @@ struct Egg
 	~Egg() = default;
 
 	// data
-	char    a;
 	double	b;
 	int		x;
+	char    a;
+	
 };
 
 
